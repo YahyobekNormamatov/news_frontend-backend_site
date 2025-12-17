@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6fb;
+            color: #333; }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px; }
+
+        .hero {
+            background: linear-gradient(135deg, #09591b, #066a17);
+            padding: 70px 30px;
+            color: white;
+            border-radius: 25px;
+            text-align: center;
+            margin-bottom: 60px; }
+
+        .hero h1 {
+            font-size: 2.8em;
+            font-weight: 700; }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: .9; }
+
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 600;
+            color: #09591b;
+            margin-bottom: 20px;
+            position: relative; }
+
+        .section-title:after {
+            content: "";
+            width: 180px;
+            height: 4px;
+            background: linear-gradient(135deg, #066a17, #066a17);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px; margin-bottom: 55px; }
+
+        .team-card {
+            background: linear-gradient(135deg, #e1e4ff, #f0e7ff);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: .25s;
+            box-shadow: 0 10px 25px rgb(8, 74, 18); }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgb(9, 89, 27); }
+
+        .card-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            background: #ddd; }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center; }
+
+        .card-name {
+            margin-top: 12px;
+            font-size: 1.3em;
+            font-weight: 600; }
+
+        .card-position {
+            color: #066a17;
+            font-weight: 500;
+            margin-bottom: 8px; }
+        .card-bio {
+            font-size: .9em;
+            color: #555; }
+
+        .stats {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            text-align: center;
+            margin-bottom: 60px; }
+
+        .stat-box h3 {
+            font-size: 2em;
+            color: #09591b; }
+
+        .stat-box p {
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .news-img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 0.7rem;
+            border-top-right-radius: 0.7rem;
+        }
+
+        .stylish-search {
+            transition: 0.25s;
+            border-radius: 12px;
+        }
+
+        .stylish-search .form-control {
+            border-radius: 0 12px 12px 0;
+            box-shadow: none !important;
+        }
+
+        .stylish-search .form-control:focus {
+            border-color: #9cd9bc;
+        }
+
+
+        .dropdown-item.active, .dropdown-item:active {
+            background-color: #28a745 !important;
+            color: #fff !important;
+
+        }
+
+        .dropdown-item:hover {
+            background-color: #d4edda;
+            color: #155724;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .dropdown-item {
+            color: #333;
+        }
+
+        .navbar-nav .nav-link {
+            color: #066a17 !important;
+        }
+
+        .navbar-brand {
+            color: #09591b !important;
+            font-weight: bold;
+        }
+
+        .navbar-brand:hover {
+            text-decoration: underline;
+        }
+
+
+        .join {
+            background: linear-gradient(135deg, #084a12, #09591b);
+            color: #fff; text-align: center;
+            padding: 60px 30px;
+            border-radius: 25px;
+            margin-bottom: 70px; }
+
+        .join h2 {
+            font-size: 2em;
+            font-weight: 700; }
+
+        .join p {
+            margin-top: 10px;
+            opacity: .9; }
+
+
+        .join-btn {
+            margin-top: 25px;
+            display: inline-block;
+            padding: 12px 22px;
+            background: white;
+            color: #066a17;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: .2s; }
+
+        .join-btn:hover {
+            transform: translateY(-3px); }
+
+
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'blog' %}">
+      <img src="https://cdn.vectorstock.com/i/1000v/45/91/news-and-facts-reporting-logo-composed-using-vector-27444591.jpg"
+           alt="News" height="42" class="me-3">
+      <strong>News</strong>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+    <ul class="navbar-nav fw-bold d-flex align-items-center gap-4">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            About us
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'about' %}">Our company</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'community' %}">Our community</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            {% if active_category_name %}
+              {{ active_category_name }}
+            {% else %}
+              Categories
+            {% endif %}
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item {% if not active_category %}active{% endif %}" href="{% url 'blog' %}">
+                All
+              </a>
+            </li>
+
+            {% for cat in categories %}
+              <li>
+                 <a class="dropdown-item {% if active_category == cat.id %}active{% endif %}"
+                   href="?category={{ cat.id }}{% if query %}&q={{ query }}{% endif %}">
+                  {{ cat.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+      </ul>
+
+      <form class="d-flex ms-4" method="GET" action="">
+
+        {% if active_category %}
+          <input type="hidden" name="category" value="{{ active_category }}">
+        {% endif %}
+
+        <div class="input-group stylish-search">
+          <input type="search" class="form-control" placeholder="Search..." name="q" value="{{ query }}">
+          <button class="btn btn-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    <div class="hero">
+        <h1>Bizning jamoa</h1>
+        <p>Professional jurnalistlar va mutaxassislar jamoasi</p>
+    </div>
+
+    {% for dep in departments %}
+        <h2 class="section-title">{{ dep.name }}</h2>
+        <div class="team-grid">
+            {% for m in dep.members.all %}
+            <div class="team-card">
+                <div class="card-image">
+                    {% if m.image %}
+                        <a href="{% url 'team_detail' m.id %}">
+                           <img src="{{ m.image.url }}" alt="{{ m.name }}">
+                        </a>
+                    {% else %}
+                        👤
+                    {% endif %}
+                </div>
+                <div class="card-name">{{ m.name }}</div>
+                <div class="card-position">{{ m.position }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="stats">
+        <div class="stat-box">
+            <h3>50+</h3>
+            <p>Jamoa a'zolari</p>
+        </div>
+        <div class="stat-box">
+            <h3>15+</h3>
+            <p>Yillik tajriba</p>
+        </div>
+        <div class="stat-box">
+            <h3>100+</h3>
+            <p>Kundalik maqolalar</p>
+        </div>
+        <div class="stat-box">
+            <h3>20+</h3>
+            <p>Mutaxassislar</p>
+        </div>
+    </div>
+
+    <div class="join">
+        <h2>Jamoaga qo‘shiling!</h2>
+        <p>Iqtidorli jurnalistlar va mutaxassislarni biz bilan ishlashga taklif qilamiz.</p>
+        <a href="{% url 'apply' %}" class="join-btn">Ariza yuborish</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

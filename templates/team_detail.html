@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ member.name }}</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e8f3e8;
+            padding: 30px;
+        }
+
+        .card-box {
+            width: 420px;
+            background: #efe9ff;
+            padding: 25px;
+            border-radius: 30px;
+            margin: auto;
+            box-shadow: 0px 12px 35px rgba(0,0,0,0.18);
+            text-align: center;
+        }
+
+        .card-box img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 25px;
+        }
+
+        .card-box h3 {
+            margin-top: 18px;
+            font-weight: 700;
+        }
+
+        .card-box p {
+            margin-top: -5px;
+            color: #198754;
+            font-size: 17px;
+        }
+
+        .carousel-inner {
+            border-radius: 35px;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 6%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .carousel-control-prev { left: 5px; }
+        .carousel-control-next { right: 5px; }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            filter: invert(50%) sepia(98%) saturate(600%) hue-rotate(80deg);
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="carouselExample" class="carousel slide w-50 mx-auto">
+    <div class="carousel-inner">
+        {% for m in members %}
+        <div class="carousel-item {% if m.id == member.id %}active{% endif %}">
+            <div class="card-box">
+                <img src="{{ m.image.url }}" alt="{{ m.name }}">
+                <h3>{{ m.name }}</h3>
+                <p>{{ m.position }}</p>
+                <p>{{ m.bio }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <button class="carousel-control-prev" type="button"
+            data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button"
+            data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

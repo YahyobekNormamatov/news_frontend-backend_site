@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #7280b3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .item-box {
+            border-radius: 20px;
+            position: relative;
+            padding: 35px;
+            min-height: 320px;
+            overflow: hidden;
+
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .item-box h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .project-date {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .btn-batafsil {
+            background: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+            color: black;
+            font-weight: 600;
+            border: none;
+            font-size: 15px;
+            width: fit-content;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-batafsil:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .project-image {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.35);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header-title h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .dropdown-item.active, .dropdown-item:active {
+            background-color: #28a745 !important;
+            color: #fff !important;
+
+        }
+
+        .dropdown-item:hover {
+            background-color: #d4edda;
+            color: #155724;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .dropdown-item {
+            color: #333;
+        }
+
+        .navbar-nav .nav-link {
+            color: #066a17 !important;
+        }
+        .navbar-brand {
+            color: #09591b !important;
+            font-weight: bold;
+        }
+
+        .navbar-brand:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'blog' %}">
+      <img src="https://cdn.vectorstock.com/i/1000v/45/91/news-and-facts-reporting-logo-composed-using-vector-27444591.jpg"
+           alt="News" height="42" class="me-3">
+      <strong>News</strong>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+    <ul class="navbar-nav fw-bold d-flex align-items-center gap-4">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            About us
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'about' %}">Our company</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'community' %}">Our community</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            {% if active_category_name %}
+              {{ active_category_name }}
+            {% else %}
+              Categories
+            {% endif %}
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item {% if not active_category %}active{% endif %}" href="{% url 'blog' %}">
+                All
+              </a>
+            </li>
+
+            {% for cat in categories %}
+              <li>
+                 <a class="dropdown-item {% if active_category == cat.id %}active{% endif %}"
+                   href="?category={{ cat.id }}{% if query %}&q={{ query }}{% endif %}">
+                  {{ cat.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+      </ul>
+
+      <form class="d-flex ms-4" method="GET" action="">
+
+        {% if active_category %}
+          <input type="hidden" name="category" value="{{ active_category }}">
+        {% endif %}
+
+        <div class="input-group stylish-search">
+          <input type="search" class="form-control" placeholder="Search..." name="q" value="{{ query }}">
+          <button class="btn btn-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</nav>
+<div class="container py-5">
+    <div class="header-title">
+        <h1>📰 Loyihalar</h1>
+        <p class="lead">Yangiliklar va media sohasi bo‘yicha bajarilgan ishlar</p>
+    </div>
+
+    <div class="row g-4">
+        {% for project in projects %}
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="item-box" style="background: {{ project.background|default:'#34495e' }};">
+
+                <div>
+                    <h2>{{ project.title }}</h2>
+                    <p class="project-desc">{{ project.description }}</p>
+                    <p class="project-date">
+                        📅 Yaratilgan: {{ project.created_date|date:"Y-m-d" }}
+                    </p>
+                </div>
+
+                {% if project.url %}
+                    <a href="{{ project.url }}" target="_blank" class="btn-batafsil">
+                        Batafsil
+                    </a>
+                {% else %}
+                    <button class="btn-batafsil" disabled>Tez kunda</button>
+                {% endif %}
+
+                <div class="project-image">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200?text=No+Image" alt="No image">
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

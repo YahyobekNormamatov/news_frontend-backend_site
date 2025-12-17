@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Latest News</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+
+    .news-img {
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 0.7rem;
+      border-top-right-radius: 0.7rem;
+    }
+
+    .stylish-search {
+      transition: 0.25s;
+      border-radius: 12px;
+    }
+
+    .stylish-search .form-control {
+      border-radius: 0 12px 12px 0;
+      box-shadow: none !important;
+    }
+
+    .stylish-search .form-control:focus {
+      border-color: #9cd9bc;
+    }
+
+
+    .dropdown-item.active, .dropdown-item:active {
+      background-color: #28a745 !important;
+      color: #fff !important;
+    }
+
+    .dropdown-item:hover {
+      background-color: #d4edda;
+      color: #155724;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .dropdown-item {
+      color: #333;
+    }
+
+    .navbar-nav .nav-link {
+        color: #066a17 !important;
+    }
+
+    .navbar-brand {
+        color: #09591b !important;
+        font-weight: bold;
+    }
+
+    .navbar-brand:hover {
+        text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'blog' %}">
+      <img src="https://cdn.vectorstock.com/i/1000v/45/91/news-and-facts-reporting-logo-composed-using-vector-27444591.jpg"
+           alt="News" height="42" class="me-3">
+      <strong>News</strong>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+    <ul class="navbar-nav fw-bold d-flex align-items-center gap-4">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            About us
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'about' %}">Our company</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'community' %}">Our community</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            {% if active_category_name %}
+              {{ active_category_name }}
+            {% else %}
+              Categories
+            {% endif %}
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item {% if not active_category %}active{% endif %}" href="{% url 'blog' %}">
+                All
+              </a>
+            </li>
+
+            {% for cat in categories %}
+              <li>
+                 <a class="dropdown-item {% if active_category == cat.id %}active{% endif %}"
+                   href="?category={{ cat.id }}{% if query %}&q={{ query }}{% endif %}">
+                  {{ cat.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+      </ul>
+
+      <form class="d-flex ms-4" method="GET" action="">
+        {% if active_category %}
+          <input type="hidden" name="category" value="{{ active_category }}">
+        {% endif %}
+        <div class="input-group stylish-search">
+          <input type="search" class="form-control" placeholder="Search..." name="q" value="{{ query }}">
+          <button class="btn btn-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container mt-4">
+  {% if query %}
+    <h5 class="text-muted mb-3">
+      Search results for: <strong>{{ query }}</strong>
+    </h5>
+  {% endif %}
+
+  <div class="row">
+    {% for b in blog %}
+      <div class="col-sm-6 col-md-4 mb-4">
+        <div class="card shadow-lg border-0 h-100">
+
+          {% if b.image %}
+            <img src="{{ b.image.url }}" class="card-img-top news-img">
+          {% else %}
+            <img src="https://via.placeholder.com/600x400?text=No+Image" class="card-img-top news-img">
+          {% endif %}
+
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{ b.title }}</h5>
+
+            {% with categories=b.category.all %}
+              {% if categories %}
+                <p class="mb-1">
+                  Categories:
+                  {% for cat in categories %}
+                    {{ cat.name }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+            {% endwith %}
+
+            <a href="{% url 'news_detail' b.pk %}" class="btn btn-outline-success btn-sm">
+              Read more →
+            </a>
+          </div>
+
+          <div class="card-footer bg-light">
+            <small class="text-dark">
+              Published: {{ b.create_at|date:"Y-m-d H:i" }}
+            </small>
+          </div>
+
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted">Hech narsa topilmadi.</p>
+    {% endfor %}
+  </div>
+
+  <div class="mt-3">
+    <a href="{% url 'blog' %}" class="btn btn-outline-success btn-sm">← Back</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

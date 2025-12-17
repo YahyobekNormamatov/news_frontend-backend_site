@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for a job</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<section class="vh-100" style="background-color:#0e5c69;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="text-white mb-4">Apply for a job</h1>
+
+                <div class="card" style="border-radius:25px;">
+                    <div class="card-body">
+
+                        <form id="jobForm" method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mb-0">Full name</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="text"
+                                           name="full_name"
+                                           class="form-control form-control-lg"
+                                           placeholder="Doston Karimov"
+                                           minlength="3"
+                                           required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Kamida 3 ta belgi kiriting</div>
+                                </div>
+                            </div>
+                            <hr class="mx-n3">
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mb-0">Email address</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="email"
+                                           name="email"
+                                           class="form-control form-control-lg"
+                                           placeholder="example@gmail.com"
+                                           required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Email noto‘g‘ri</div>
+                                </div>
+                            </div>
+                            <hr class="mx-n3">
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mb-0">More about yourself</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <textarea name="message"
+                                              class="form-control"
+                                              rows="3"
+                                              minlength="30"
+                                              placeholder="Message sent to the HR"
+                                              required></textarea>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Eng kamida 30 ta so'z yozing</div>
+                                </div>
+                            </div>
+                            <hr class="mx-n3">
+
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mb-0">Upload CV</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="file"
+                                           name="cv"
+                                           id="cvInput"
+                                           class="form-control"
+                                           accept=".pdf,.doc,.docx"
+                                           required>
+                                    <div class="valid-feedback">
+                                        File tanlandi<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/></svg>
+                                    </div>
+
+                                    <div class="invalid-feedback" id="cvError">
+                                        Faqat PDF yoki DOC/DOCX fayl yuklash mumkin
+                                    </div>
+                                    <div class="small text-muted mt-2">
+                                        Max file size: 50MB
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mx-n3">
+
+                            <div class="px-5 py-4 text-end">
+                                <button type="submit" class="btn btn-outline-dark btn-lg">
+                                    Send
+                                    <i class="bi bi-send ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+const form = document.getElementById("jobForm");
+const fileInput = document.getElementById("cvInput");
+const cvError = document.getElementById("cvError");
+
+const allowedTypes = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+];
+
+fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+
+    if (!file) {
+        fileInput.classList.remove("is-valid", "is-invalid");
+        return;
+    }
+
+    if (!allowedTypes.includes(file.type)) {
+        cvError.textContent = "Faqat PDF yoki DOC/DOCX fayl yuklash mumkin";
+        fileInput.classList.add("is-invalid");
+        fileInput.classList.remove("is-valid");
+        return;
+    }
+    if (file.size > 50 * 1024 * 1024) {
+        cvError.textContent = "Fayl hajmi 50MB dan oshmasligi kerak";
+        fileInput.classList.add("is-invalid");
+        fileInput.classList.remove("is-valid");
+        return;
+    }
+
+    fileInput.classList.add("is-valid");
+    fileInput.classList.remove("is-invalid");
+});
+
+form.querySelectorAll("input:not([type='file']), textarea").forEach(field => {
+    field.addEventListener("input", () => {
+        if (field.checkValidity()) {
+            field.classList.add("is-valid");
+            field.classList.remove("is-invalid");
+        } else {
+            field.classList.add("is-invalid");
+            field.classList.remove("is-valid");
+        }
+    });
+});
+
+form.addEventListener("submit", function (e) {
+    if (!form.checkValidity() || !fileInput.classList.contains("is-valid")) {
+        e.preventDefault();
+        e.stopPropagation();
+        form.classList.add("was-validated");
+        fileInput.classList.add("is-invalid");
+    }
+});
+</script>
+</body>
+</html>
