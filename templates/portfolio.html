@@ -131,25 +131,25 @@
 </head>
 
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
   <div class="container">
-
     <a class="navbar-brand d-flex align-items-center" href="{% url 'blog' %}">
       <img src="https://cdn.vectorstock.com/i/1000v/45/91/news-and-facts-reporting-logo-composed-using-vector-27444591.jpg"
            alt="News" height="42" class="me-3">
       <strong>News</strong>
     </a>
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse justify-content-end" id="navMenu">
     <ul class="navbar-nav fw-bold d-flex align-items-center gap-4">
         <li class="nav-item">
+            <a class="nav-link" href="{% url 'services' %}">Services</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
         </li>
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
             About us
@@ -162,6 +162,10 @@
               <a class="dropdown-item" href="{% url 'community' %}">Our community</a>
             </li>
           </ul>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'apply' %}">Apply</a>
+        </li>
+
         </li>
 
         <li class="nav-item dropdown">
@@ -190,27 +194,22 @@
             {% endfor %}
           </ul>
         </li>
-
       </ul>
-
       <form class="d-flex ms-4" method="GET" action="">
-
         {% if active_category %}
           <input type="hidden" name="category" value="{{ active_category }}">
         {% endif %}
-
         <div class="input-group stylish-search">
           <input type="search" class="form-control" placeholder="Search..." name="q" value="{{ query }}">
           <button class="btn btn-success" type="submit">
             <i class="bi bi-search"></i>
           </button>
         </div>
-
       </form>
-
     </div>
   </div>
 </nav>
+
 <div class="container py-5">
     <div class="header-title">
         <h1>📰 Loyihalar</h1>
@@ -251,7 +250,6 @@
         {% endfor %}
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

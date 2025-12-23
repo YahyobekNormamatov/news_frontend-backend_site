@@ -201,23 +201,22 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
   <div class="container">
-
     <a class="navbar-brand d-flex align-items-center" href="{% url 'blog' %}">
       <img src="https://cdn.vectorstock.com/i/1000v/45/91/news-and-facts-reporting-logo-composed-using-vector-27444591.jpg"
            alt="News" height="42" class="me-3">
       <strong>News</strong>
     </a>
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse justify-content-end" id="navMenu">
     <ul class="navbar-nav fw-bold d-flex align-items-center gap-4">
         <li class="nav-item">
+            <a class="nav-link" href="{% url 'services' %}">Services</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
         </li>
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
             About us
@@ -230,6 +229,10 @@
               <a class="dropdown-item" href="{% url 'community' %}">Our community</a>
             </li>
           </ul>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'apply' %}">Apply</a>
+        </li>
+
         </li>
 
         <li class="nav-item dropdown">
@@ -258,14 +261,11 @@
             {% endfor %}
           </ul>
         </li>
-
       </ul>
-
       <form class="d-flex ms-4" method="GET" action="">
         {% if active_category %}
           <input type="hidden" name="category" value="{{ active_category }}">
         {% endif %}
-
         <div class="input-group stylish-search">
           <input type="search" class="form-control" placeholder="Search..." name="q" value="{{ query }}">
           <button class="btn btn-success" type="submit">
@@ -273,21 +273,15 @@
           </button>
         </div>
       </form>
-
     </div>
   </div>
 </nav>
 
-
 <div class="container-main">
-
-
     <div class="hero">
         <h1>Biz haqimizda</h1>
         <p>Ishonchli axborot manbayi va zamonaviy yangiliklar portali</p>
     </div>
-
-
     <div class="content">
 
         <div class="section">
@@ -295,7 +289,6 @@
             <p>Biz jamiyatga xolis, tez va ishonchli axborot yetkazishni maqsad qilganmiz.</p>
             <p>Har kuni O‘zbekiston va dunyo bo‘ylab sodir bo‘layotgan muhim voqealarni kuzatib boramiz.</p>
         </div>
-
         <div class="section">
             <h2>Bizning qadriyatlarimiz</h2>
             <div class="values-grid">

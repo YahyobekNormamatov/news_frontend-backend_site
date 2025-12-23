@@ -15,5 +15,6 @@ class JobApplicationForm(forms.ModelForm):
 
             if cv.size > 50 * 1024 * 1024:
                 raise forms.ValidationError("Fayl hajmi 50MB dan oshmasligi kerak")
-
         return cv
+
+

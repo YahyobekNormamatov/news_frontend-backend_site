@@ -27,7 +27,6 @@
             {% endfor %}
         </div>
     {% endif %}
-
     <p class="text-secondary mt-3">
         Published: {{ blog.create_at|date:"Y-m-d H:i" }}
     </p>
@@ -37,7 +36,6 @@
     </div>
     <p class="text-secondary mt-3"> Author: {{ blog.author }} </p>
     <a href="{% url 'blog' %}" class="btn btn-outline-success btn-sm">← Back</a>
-
 
 </div>
 </body>

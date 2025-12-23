@@ -49,12 +49,8 @@ class Project(models.Model):
     image = models.ImageField(upload_to="", blank=True, null=True)
     url = models.URLField(blank=True, null=True)
 
-
-
     def __str__(self):
         return self.title
-
-
 
 
 class Category(models.Model):
@@ -86,7 +82,6 @@ class Blog(models.Model):
         related_name="blogs"
     )
 
-
     author = models.ForeignKey(
         'Author',
         on_delete=models.SET_NULL,
@@ -95,16 +90,11 @@ class Blog(models.Model):
         related_name="blogs"
     )
 
-
-
     def __str__(self):
         return self.title
 
-
     class Meta:
         ordering = ['-create_at']
-
-
 
 class JobApplication(models.Model):
     full_name = models.CharField(max_length=100)
@@ -116,6 +106,13 @@ class JobApplication(models.Model):
     def __str__(self):
         return self.full_name
 
+class Services(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    image = models.ImageField(upload_to="", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
 
 

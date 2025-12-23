@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import apply
 
 urlpatterns = [
     path('news/<int:id>/', views.news_detail, name='news_detail'),
@@ -11,7 +10,8 @@ urlpatterns = [
     path('community/', views.community, name='community'),
     path('team/<int:pk>/', views.team_detail, name='team_detail'),
     path('portfolio/', views.portfolio, name='portfolio'),
-    path('apply/', apply, name='apply'),
+    path('apply/', views.apply, name='apply'),
+    path('services/', views.services, name='services'),
 
 ]
 

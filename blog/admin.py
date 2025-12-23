@@ -1,15 +1,13 @@
 from django.contrib import admin
-from .models import Blog, BlogImage, Category, Author, Member, Department, Project, JobApplication
+from .models import Blog, BlogImage, Category, Author, Member, Department, Project, JobApplication, Services
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'create_at')
 
-
 @admin.register(BlogImage)
 class BlogImageAdmin(admin.ModelAdmin):
     list_display = ('image',)
-
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -23,7 +21,6 @@ class DepartmentAdmin(admin.ModelAdmin):
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio')
 
-
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -33,7 +30,13 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'create_at')
 
 
-
 @admin.register(JobApplication)
 class JobApplicationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'created_at')
+
+
+@admin.register(Services)
+class ServicesAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at')
+
+

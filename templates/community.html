@@ -170,62 +170,27 @@
             text-decoration: underline;
         }
 
-
-        .join {
-            background: linear-gradient(135deg, #084a12, #09591b);
-            color: #fff; text-align: center;
-            padding: 60px 30px;
-            border-radius: 25px;
-            margin-bottom: 70px; }
-
-        .join h2 {
-            font-size: 2em;
-            font-weight: 700; }
-
-        .join p {
-            margin-top: 10px;
-            opacity: .9; }
-
-
-        .join-btn {
-            margin-top: 25px;
-            display: inline-block;
-            padding: 12px 22px;
-            background: white;
-            color: #066a17;
-            font-weight: 600;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: .2s; }
-
-        .join-btn:hover {
-            transform: translateY(-3px); }
-
-
     </style>
 </head>
-
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
   <div class="container">
-
     <a class="navbar-brand d-flex align-items-center" href="{% url 'blog' %}">
       <img src="https://cdn.vectorstock.com/i/1000v/45/91/news-and-facts-reporting-logo-composed-using-vector-27444591.jpg"
            alt="News" height="42" class="me-3">
       <strong>News</strong>
     </a>
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse justify-content-end" id="navMenu">
     <ul class="navbar-nav fw-bold d-flex align-items-center gap-4">
         <li class="nav-item">
+            <a class="nav-link" href="{% url 'services' %}">Services</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
         </li>
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
             About us
@@ -238,8 +203,10 @@
               <a class="dropdown-item" href="{% url 'community' %}">Our community</a>
             </li>
           </ul>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'apply' %}">Apply</a>
         </li>
-
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
             {% if active_category_name %}
@@ -255,7 +222,6 @@
                 All
               </a>
             </li>
-
             {% for cat in categories %}
               <li>
                  <a class="dropdown-item {% if active_category == cat.id %}active{% endif %}"
@@ -266,15 +232,11 @@
             {% endfor %}
           </ul>
         </li>
-
       </ul>
-
       <form class="d-flex ms-4" method="GET" action="">
-
         {% if active_category %}
           <input type="hidden" name="category" value="{{ active_category }}">
         {% endif %}
-
         <div class="input-group stylish-search">
           <input type="search" class="form-control" placeholder="Search..." name="q" value="{{ query }}">
           <button class="btn btn-success" type="submit">
@@ -312,7 +274,6 @@
             {% endfor %}
         </div>
     {% endfor %}
-
     <div class="stats">
         <div class="stat-box">
             <h3>50+</h3>
@@ -331,15 +292,7 @@
             <p>Mutaxassislar</p>
         </div>
     </div>
-
-    <div class="join">
-        <h2>Jamoaga qo‘shiling!</h2>
-        <p>Iqtidorli jurnalistlar va mutaxassislarni biz bilan ishlashga taklif qilamiz.</p>
-        <a href="{% url 'apply' %}" class="join-btn">Ariza yuborish</a>
-    </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
